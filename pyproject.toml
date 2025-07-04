@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "esd-services-api-client"
+version = "0.0.0"
+description = "Python clients for ESD services"
+authors = ["ECCO Sneaks & Data <esdsupport@ecco.com>"]
+maintainers = ['GZU <gzu@ecco.com>', 'JRB <ext-jrb@ecco.com>', 'VISA <visa@ecco.com>']
+readme = "README.md"
+license = 'Apache 2.0'
+repository = 'https://github.com/SneaksAndData/esd-services-api-client'
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+adapta = { version = "^3.4", extras = ["storage", "aws", "datadog"] }
+nexus-client-sdk = "^0.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8"
+pylint = "^3"
+pytest-mock = "^3.6.1"
+pytest-cov = "^3"
+locust = "^2.14.2"
+black = "^23"
+pytest-timeout = "^2.1.0"
+pytest-asyncio = "^0.24"
+
+[build-system]
+requires = ["poetry-core", "setuptools"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.extras]
+azure = [
+    'azure-identity'
+]
+
+nexus = [
+    'injector',
+    'httpx',
+    'polars'
+]
