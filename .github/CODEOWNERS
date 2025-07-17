@@ -1,10 +1,4 @@
 # This is a comment.
 # Each line is a file pattern followed by one or more owners.
 
-# These owners will be the default owners for everything in
-# the repo. Unless a later match takes precedence, these people will be requests a review
-# review when someone opens a pull request.
-.github @SneaksAndData/platform-engineering
-.github/workflows/release.yaml @SneaksAndData/platform-engineering @SneaksAndData/or-scientists
-.container @SneaksAndData/platform-engineering
-nexus_hello @SneaksAndData/or-scientists @SneaksAndData/platform-engineering
+* @SneaksAndData/platform-engineering
