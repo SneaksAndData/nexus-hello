@@ -43,7 +43,7 @@ def enrich_logger_from_payload(
 
 async def main():
     """
-    Main function to run the Omni Channel Nexus Solver
+    Main function to run the Nexus Hello Algorithm
     """
     nexus = (
         Nexus.create()
