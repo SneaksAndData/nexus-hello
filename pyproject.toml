@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "esd-services-api-client"
+name = "nexus-hello"
 version = "0.0.0"
-description = "Python clients for ESD services"
-authors = ["ECCO Sneaks & Data <esdsupport@ecco.com>"]
-maintainers = ['GZU <gzu@ecco.com>', 'JRB <ext-jrb@ecco.com>', 'VISA <visa@ecco.com>']
+description = "Sample project demonstrating Nexus framework usage and features"
+authors = ["ECCO Data & AI <esdsupport@ecco.com>"]
+maintainers = ["ECCO Data & AI <esdsupport@ecco.com>"]
 readme = "README.md"
 license = 'Apache 2.0'
-repository = 'https://github.com/SneaksAndData/esd-services-api-client'
+repository = 'https://github.com/SneaksAndData/nexus-hello'
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
@@ -26,14 +26,3 @@ pytest-asyncio = "^0.24"
 [build-system]
 requires = ["poetry-core", "setuptools"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.extras]
-azure = [
-    'azure-identity'
-]
-
-nexus = [
-    'injector',
-    'httpx',
-    'polars'
-]

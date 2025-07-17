@@ -3071,11 +3071,7 @@ docs = ["Sphinx", "furo", "repoze.sphinx.autointerface"]
 test = ["coverage[toml]", "zope.event", "zope.testing"]
 testing = ["coverage[toml]", "zope.event", "zope.testing"]
 
-[extras]
-azure = []
-nexus = []
-
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.13"
-content-hash = "ac9427583c5178e41c224d1500713524298fe85b919610033d173506b7b8b313"
+content-hash = "1b9ab74299c8e0e4a0777340fe30763a44631bd1069e010c887caa5144671a0b"
