@@ -21,7 +21,7 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Python Version:**
-Specify a Python version used to reproduce this issue.
+Specify a Python version and Nexus Client SDK version used to reproduce this issue.
 
 **Additional context**
 Add any other context about the problem here.
