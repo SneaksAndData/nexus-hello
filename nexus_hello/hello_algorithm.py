@@ -13,17 +13,26 @@ from nexus_hello.models.payload import HelloData
 
 @final
 class HelloAlgorithm(MinimalisticAlgorithm):
+    """
+    A greeting algorithm
+    """
 
     @inject
-    def __init__(self, metrics_provider: MetricsProvider, logger_factory: LoggerFactory, payload: HelloData, cache: InputCache):
+    def __init__(
+        self,
+        metrics_provider: MetricsProvider,
+        logger_factory: LoggerFactory,
+        payload: HelloData,
+        cache: InputCache,
+    ):
         super().__init__(metrics_provider, logger_factory, cache=cache)
 
         self._payload = payload
 
     async def _run(self, **kwargs) -> AlgorithmResult:
         return HelloResult(
-            response_text="",
-            response_codes=[]
+            response_text=f"Hello to you, {self._payload.hello_author}! Guess what I have encoded for you :)",
+            response_codes=list("Nexus is your true friend!".encode("utf-8")),
         )
 
     async def _context_open(self):

@@ -8,7 +8,8 @@ from nexus_client_sdk.nexus.input.payload_reader import AlgorithmPayload
 @dataclass
 class HelloData(AlgorithmPayload):
     """
-     Configuration for saying hello
+    Configuration for saying hello
     """
+
     hello_text: str
     hello_author: str

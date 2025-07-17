@@ -1,0 +1,204 @@
+name: Publish to ECR
+run-name: Publish container (amd/arm) from ${{github.ref_name}} by @${{ github.actor }}
+
+on: workflow_dispatch
+
+jobs:
+  publish_container_image_dev:
+    name: Publish Container Image (amd/arm) (DEV)
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.x'
+          architecture: 'x64'
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.3.0
+        with:
+          use: true
+          platforms: linux/arm64,linux/amd64
+
+      - name: Get the project version
+        uses: SneaksAndData/github-actions/generate_version@v0.1.9
+        id: version
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            957747334372.dkr.ecr.eu-central-1.amazonaws.com/nexus-algorithms/nexus-hello
+          flavor:
+            latest=false
+          tags: |
+            type=semver,pattern={{raw}},value=${{steps.version.outputs.version}}             
+
+      - name: Import Secrets
+        uses: hashicorp/vault-action@v2.7.3
+        with:
+          url: https://hashicorp-vault.awsp.sneaksanddata.com/
+          role: github
+          method: jwt
+          secrets: |
+            /secret/data/common/package-publishing/aws-ca/production/artifact-user access_key ;
+            /secret/data/common/package-publishing/aws-ca/production/artifact-user access_key_id ;
+            
+            /secret/data/common/package-publishing/aws-ecr/dev/container-user access_key | ECR_ACCESS_KEY ;
+            /secret/data/common/package-publishing/aws-ecr/dev/container-user access_key_id | ECR_ACCESS_KEY_ID;
+
+      - name: Setup AWS CA
+        uses: SneaksAndData/github-actions/setup_aws_ca@v0.1.9
+        with:
+          aws_access_key: ${{ env.ACCESS_KEY }}
+          aws_access_key_id: ${{ env.ACCESS_KEY_ID }}
+          mode: read
+          aws_ca_domain: esd-code-artifact-production
+          aws_ca_domain_owner: 497010676583
+          aws_ca_repository: esd-artifacts
+        id: setup_aws_ca
+
+      - name: Install Poetry and dependencies
+        uses: SneaksAndData/github-actions/install_poetry@v0.1.9
+        with:
+          pypi_repo_url: ${{ steps.setup_aws_ca.outputs.url }}
+          pypi_token_username: ${{ steps.setup_aws_ca.outputs.user }}
+          pypi_token: ${{ steps.setup_aws_ca.outputs.token }}
+          skip_dependencies: true
+          export_requirements: true
+          export_credentials: true
+          requirements_path: ".container/requirements.txt"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.0
+        with:
+          aws-access-key-id: ${{ env.ECR_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.ECR_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Authenticate Docker Build to ECR
+        uses: docker/login-action@v3.1.0
+        with:
+          registry: 957747334372.dkr.ecr.eu-central-1.amazonaws.com
+
+      - name: Build and Push Image
+        uses: docker/build-push-action@v5.3.0
+        with:
+          context: .
+          file: .container/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/arm64,linux/amd64
+          provenance: false
+          sbom: false
+
+  publish_container_image_prod:
+    name: Publish Container Image (amd/arm) (PROD)
+    runs-on:
+      labels: ubuntu-latest-32-cores
+    if: ${{ startsWith(github.ref, 'refs/tags') }}
+
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.x'
+          architecture: 'x64'
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.3.0
+        with:
+          use: true
+          platforms: linux/arm64,linux/amd64
+
+      - name: Get the project version
+        uses: SneaksAndData/github-actions/generate_version@v0.1.9
+        id: version
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            497010676583.dkr.ecr.eu-central-1.amazonaws.com/nexus-algorithms/nexus-hello
+          flavor:
+            latest=false
+          tags: |
+            type=semver,pattern={{raw}},value=${{steps.version.outputs.version}}                
+
+      - name: Import Secrets
+        uses: hashicorp/vault-action@v2.7.3
+        with:
+          url: https://hashicorp-vault.awsp.sneaksanddata.com/
+          role: github
+          method: jwt
+          secrets: |
+            /secret/data/common/package-publishing/aws-ca/production/artifact-user access_key ;
+            /secret/data/common/package-publishing/aws-ca/production/artifact-user access_key_id ;
+            
+            /secret/data/common/package-publishing/aws-ecr/production/container-user access_key | ECR_ACCESS_KEY ;
+            /secret/data/common/package-publishing/aws-ecr/production/container-user access_key_id | ECR_ACCESS_KEY_ID
+
+      - name: Setup AWS CA
+        uses: SneaksAndData/github-actions/setup_aws_ca@v0.1.9
+        with:
+          aws_access_key: ${{ env.ACCESS_KEY }}
+          aws_access_key_id: ${{ env.ACCESS_KEY_ID }}
+          mode: read
+          aws_ca_domain: esd-code-artifact-production
+          aws_ca_domain_owner: 497010676583
+          aws_ca_repository: esd-artifacts
+        id: setup_aws_ca
+
+      - name: Install Poetry and dependencies
+        uses: SneaksAndData/github-actions/install_poetry@v0.1.9
+        with:
+          pypi_repo_url: ${{ steps.setup_aws_ca.outputs.url }}
+          pypi_token_username: ${{ steps.setup_aws_ca.outputs.user }}
+          pypi_token: ${{ steps.setup_aws_ca.outputs.token }}
+          skip_dependencies: true
+          export_requirements: true
+          export_credentials: true
+          requirements_path: ".container/requirements.txt"
+          export_dev_requirements: false
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.0
+        with:
+          aws-access-key-id: ${{ env.ECR_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.ECR_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Authenticate Docker Build to ECR
+        uses: docker/login-action@v3.1.0
+        with:
+          registry: 497010676583.dkr.ecr.eu-central-1.amazonaws.com
+
+      - name: Build and Push Image
+        uses: docker/build-push-action@v5.3.0
+        with:
+          context: .
+          file: .container/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/arm64,linux/amd64
+          provenance: false
+          sbom: false
