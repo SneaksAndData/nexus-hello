@@ -19,7 +19,7 @@ pylint = "^3"
 pytest-mock = "^3.6.1"
 pytest-cov = "^3"
 locust = "^2.14.2"
-black = "^23"
+black = "^24"
 pytest-timeout = "^2.1.0"
 pytest-asyncio = "^0.24"
 
