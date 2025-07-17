@@ -41,6 +41,14 @@ jobs:
           flavor:
             latest=false
 
+      - name: Install Poetry and dependencies
+        uses: SneaksAndData/github-actions/install_poetry@v0.1.9
+        with:
+          skip_dependencies: true
+          export_requirements: true
+          export_credentials: true
+          requirements_path: ".container/requirements.txt"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3.10.0
         with:
