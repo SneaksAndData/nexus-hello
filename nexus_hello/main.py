@@ -1,6 +1,6 @@
 import asyncio
 
-from nexus_.nexus.core.app_core import Nexus
+from nexus_client_sdk.nexus.core.app_core import Nexus
 from nexus_client_sdk.nexus.input.command_line import NexusDefaultArguments
 
 from nexus_hello.models.payload import HelloData
