@@ -2,14 +2,14 @@
 
 An example project for Nexus framework, that is also used in Nexus integration tests. Supported features:
 - :white_check_mark: `MinimalisticAlgorithm`
-- :white_check_mark: `UserTelemetry` classes
 - :white_check_mark: Interaction with Nexus Receiver
-- :white_check_mark: Data readers and processors
 - :white_check_mark: Payload parsing
 
 In progress:
 - [ ] `ForkedAlgorithm`
 - [ ] `DistributedAlgorithm`
+- [ ] `Data readers and processors`
+- [ ] `UserTelemetry` classes
 
 ## Usage
 

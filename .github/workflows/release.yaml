@@ -1,0 +1,17 @@
+name: Create GH Release
+
+on: workflow_dispatch
+
+jobs:
+  create_release:
+    name: Create release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: SneaksAndData/github-actions/semver_release@v0.1.11
+        with:
+          major_v: "0"
+          minor_v: "1"
