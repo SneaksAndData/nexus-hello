@@ -5,11 +5,11 @@ on: workflow_dispatch
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: nexus-algorithms/${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build_image:
-    name: Build Docker Image and Helm Charts
+    name: Build Container Image
     runs-on: ubuntu-latest
     permissions:
       contents: read
