@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate_code:
-    name: Validate code format
+    name: codestyle
     runs-on: ubuntu-latest
 
     permissions:

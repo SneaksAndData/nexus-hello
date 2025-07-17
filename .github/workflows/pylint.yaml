@@ -6,7 +6,7 @@ on:
 
 jobs:
   validate_code:
-    name: Validate code linting
+    name: codestyle
     runs-on: ubuntu-latest
 
     permissions:
