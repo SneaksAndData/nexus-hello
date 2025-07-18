@@ -3,6 +3,7 @@ import asyncio
 from nexus_client_sdk.nexus.core.app_core import Nexus
 from nexus_client_sdk.nexus.input.command_line import NexusDefaultArguments
 
+from nexus_hello.hello_algorithm import HelloAlgorithm
 from nexus_hello.models.payload import HelloData
 
 
@@ -47,6 +48,7 @@ async def main():
     """
     nexus = (
         Nexus.create()
+        .use_algorithm(HelloAlgorithm)
         .inject_payload(HelloData)
         .with_log_enricher(
             tagger=logger_tags_from_payload, enricher=enrich_logger_from_payload
