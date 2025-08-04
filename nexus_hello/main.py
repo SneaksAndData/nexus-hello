@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 from nexus_client_sdk.nexus.core.app_core import Nexus
 from nexus_client_sdk.nexus.input.command_line import NexusDefaultArguments
@@ -46,9 +47,12 @@ async def main():
     """
     Main function to run the Nexus Hello Algorithm
     """
+    nexus = Nexus.create()
+    nexus._run_args.sas_uri.replace(
+        "http://localhost:9000", os.getenv("PROTEUS__AWS_ENDPOINT")
+    )
     nexus = (
-        Nexus.create()
-        .use_algorithm(HelloAlgorithm)
+        nexus.use_algorithm(HelloAlgorithm)
         .inject_payload(HelloData)
         .with_log_enricher(
             tagger=logger_tags_from_payload, enricher=enrich_logger_from_payload
