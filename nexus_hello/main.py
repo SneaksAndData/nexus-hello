@@ -48,7 +48,7 @@ async def main():
     Main function to run the Nexus Hello Algorithm
     """
     nexus = Nexus.create()
-    nexus._run_args.sas_uri.replace(
+    nexus._run_args.sas_uri = nexus._run_args.sas_uri.replace(
         "http://localhost:9000", os.getenv("PROTEUS__AWS_ENDPOINT")
     )
     nexus = (
