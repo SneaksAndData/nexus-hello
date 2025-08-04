@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
-from typing import final, Any, Union, Dict
+from typing import final, Any
 
 import pandas
 import polars
@@ -18,14 +18,12 @@ class HelloResult(AlgorithmResult):
     response_text: str
     response_codes: list[int]
 
-    def result(self) -> Union[pandas.DataFrame, polars.DataFrame, Dict]:
-        return polars.DataFrame(
-            {
-                "hello_response": self.response_text,
-                "hello_time": datetime.now().isoformat(),
-                "hello_values": self.response_codes,
-            }
-        )
+    def result(self) -> pandas.DataFrame | polars.DataFrame | dict:
+        return {
+            "hello_response": self.response_text,
+            "hello_time": datetime.now().isoformat(),
+            "hello_values": self.response_codes,
+        }
 
     def to_kwargs(self) -> dict[str, Any]:
         pass
