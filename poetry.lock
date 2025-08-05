@@ -1722,15 +1722,15 @@ files = [
 
 [[package]]
 name = "nexus-client-sdk"
-version = "0.3.2"
+version = "0.3.3"
 description = "Nexus SDK library for Python."
 optional = false
 python-versions = "<3.13,>=3.11"
 groups = ["main"]
 files = [
-    {file = "nexus_client_sdk-0.3.2-cp311-cp311-macosx_13_0_arm64.whl", hash = "sha256:54c757e7a312b0b9ab3acca1b808849cf13409e5644ff72691348afc217845e8"},
-    {file = "nexus_client_sdk-0.3.2-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:9066d9a7de75c294b834ed2e1593873b9cb7561fad14c429c143028d25fe5d57"},
-    {file = "nexus_client_sdk-0.3.2-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:c2ce7f53fdfed3d00b7f720446799a5aae0212695134f2b9689dd5e7eed280d2"},
+    {file = "nexus_client_sdk-0.3.3-cp311-cp311-macosx_13_0_arm64.whl", hash = "sha256:c1955c34a49e9e9ffbc461dadd674bd67fda94901ea505c7b6c745977bcf49d6"},
+    {file = "nexus_client_sdk-0.3.3-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:9495123d147772a9449fbc36d0db0e098f1898f93eaaadf246f67e9fe1b4bfb7"},
+    {file = "nexus_client_sdk-0.3.3-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:ddd368a2beab5df23def2a70a91793baddca50c1fda925971dd3dabfe295c302"},
 ]
 
 [package.dependencies]
@@ -3096,4 +3096,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.13"
-content-hash = "934e2c331e80c0d9152ad5f7fd8102241c1f358803e8907edcea3bedefbfd00d"
+content-hash = "40774e14fde6bf50635ca3671252167492031c887482fb2144813159517bd844"
