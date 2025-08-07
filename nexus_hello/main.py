@@ -49,7 +49,8 @@ async def main():
     """
     nexus = Nexus.create()
     nexus._run_args.sas_uri = nexus._run_args.sas_uri.replace(
-        "http://localhost:9000", os.getenv("PROTEUS__AWS_ENDPOINT", "http://localhost:9000")
+        "http://localhost:9000",
+        os.getenv("PROTEUS__AWS_ENDPOINT", "http://localhost:9000"),
     )
     nexus = (
         nexus.use_algorithm(HelloAlgorithm)
