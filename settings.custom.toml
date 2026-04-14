@@ -3,6 +3,9 @@ dynaconf_merge = true
 # Name of this algorithm in the Nexus deployment
 algorithm_name = "hello-world"
 
+[threading]
+blocking_pool_size = 1
+
 # Result processing and serialization
 [result]
 
@@ -87,19 +90,17 @@ fixed_template_delimiter = ""
 
 # Datadog API handler settings
 [logging.datadog]
-# If enabled, remember to add PROTEUS__DD_API_KEY, PROTEUS__DD_APP_KEY and PROTEUS__DD_SITE to your environment
-# variables
 enabled = "0"
-buffer_size = "1"
-debug = "False"
-max_flush_retry_time = "30"
-ignore_flush_failure = "True"
-fixed_tags = {}
-attach_interrupt_handlers = "True"
 
 [metrics]
 # Implementation of MetricsProvider used to submit default framework runtime and user-level metrics
 provider = "adapta.metrics.providers.void_provider.VoidMetricsProvider"
 
 # Initialization configuration for the MetricsProvider defined under `provider`
-init_args = {"metric_namespace" = "sdk"}
+init_args = {}
+
+# Protocol to use when sending metrics. Provider-speicifc setting. `udp`, `uds` are supported for DatadogMetricsProvider
+protocol = ""
+
+# Tags to assign to all metrics globally
+global_tags = {}
