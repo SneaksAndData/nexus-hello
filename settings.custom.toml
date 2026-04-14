@@ -1,0 +1,4 @@
+dynaconf_merge = true
+
+# Name of this algorithm in the Nexus deployment
+algorithm_name = "hello-world"
