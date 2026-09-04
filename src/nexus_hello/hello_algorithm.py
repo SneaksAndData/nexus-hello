@@ -32,7 +32,7 @@ class HelloAlgorithm(MinimalisticAlgorithm):
     async def _run(self, **kwargs) -> AlgorithmResult:
         return HelloResult(
             response_text=f"Hello to you, {self._payload.hello_author}! Guess what I have encoded for you :)",
-            response_codes=list("Nexus is your true friend!".encode("utf-8")),
+            response_codes=list(b"Nexus is your true friend!"),
         )
 
     async def _context_open(self):
