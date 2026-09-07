@@ -4,11 +4,18 @@ dynaconf_merge = true
 
 algorithm = " nexus_hello.hello_algorithm.HelloAlgorithm"
 
+log_enrichment_function = "nexus_hello.main.enrich_logger_from_payload"
+
+log_tagging_function = "nexus_hello.main.logger_tags_from_payload"
+
+metric_tagging_function = "nexus_hello.main.metric_tags_from_payload"
+
+
 [runtime.payload]
 
-# payload type supported by this Nexus application.
-type_name = "nexus_hello.models.payload.HelloData"
+serialization_mode = "off"
 
+type_name = "nexus_hello.models.payload.HelloData"
 
 # ADDITIONAL SERVICES
 [services]
