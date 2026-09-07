@@ -9,7 +9,7 @@ RUN apt-get update \
 
 WORKDIR /app/nexus_hello
 
-COPY nexus_hello /app/nexus_hello
+COPY src/nexus_hello /app/nexus_hello
 COPY .container/requirements.txt /tmp
 
 RUN python3 -m venv .venv \
