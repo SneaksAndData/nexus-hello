@@ -5,11 +5,12 @@ from nexus_client_sdk.nexus.configurations.configuration_model import NexusConfi
 from nexus_client_sdk.nexus.core.app_core import Nexus
 from nexus_client_sdk.nexus.input.command_line import NexusDefaultArguments
 
-from nexus_hello.hello_algorithm import HelloAlgorithm
 from nexus_hello.models.payload import HelloData
 
 
-def logger_tags_from_payload(payload: HelloData, _: NexusDefaultArguments, __: NexusConfigurationModel) -> dict[str, str]:
+def logger_tags_from_payload(
+    payload: HelloData, _: NexusDefaultArguments, __: NexusConfigurationModel
+) -> dict[str, str]:
     """
     Extracts tags from payload used for logger
     """
@@ -18,7 +19,9 @@ def logger_tags_from_payload(payload: HelloData, _: NexusDefaultArguments, __: N
     }
 
 
-def metric_tags_from_payload(payload: HelloData, run_args: NexusDefaultArguments, __: NexusConfigurationModel) -> dict[str, str]:
+def metric_tags_from_payload(
+    payload: HelloData, run_args: NexusDefaultArguments, __: NexusConfigurationModel
+) -> dict[str, str]:
     """
     Extracts tags from payload used for metrics
     """
@@ -29,7 +32,9 @@ def metric_tags_from_payload(payload: HelloData, run_args: NexusDefaultArguments
     }
 
 
-def enrich_logger_from_payload(_: HelloData, run_args: NexusDefaultArguments, __: NexusConfigurationModel) -> dict[str, dict[str, str]]:
+def enrich_logger_from_payload(
+    _: HelloData, run_args: NexusDefaultArguments, __: NexusConfigurationModel
+) -> dict[str, dict[str, str]]:
     """
     Extracts tags from payload used for logging
     """
