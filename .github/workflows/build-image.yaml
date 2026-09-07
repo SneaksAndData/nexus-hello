@@ -47,7 +47,7 @@ jobs:
           enable-cache: true
 
       - name: Export lockfile
-        run: uv export --format requirements-txt --output-file .container/requirements.txt
+        run: uv export --format requirements-txt --no-emit-workspace --output-file .container/requirements.txt
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
