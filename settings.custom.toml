@@ -10,7 +10,7 @@ blocking_pool_size = 1
 [result]
 
 # Base path to use when recording results. Protocol must be supported by storage_client_class
-output_path = "s3a://e2e/nexus-sdk-tests/result"
+output_path = "s3a://e2e/nexus-hello/result"
 
 # Storage client to use when saving serialized result and generating pre-signed URL for it
 storage_client_class = "adapta.storage.blob.s3_storage_client.S3StorageClient"
@@ -23,7 +23,7 @@ serializers = [
 # Run telemetry recording
 [telemetry]
 # Base path to use when recording input and user telemetry
-output_path = "s3a://e2e/nexus-sdk-tests/telemetry"
+output_path = "s3a://e2e/nexus-hello/telemetry"
 
 # TELEMETRY SERIALIZERS - classes available to serialize Algorithm inputs and UserTelemetry classes
 serializers = [
@@ -61,20 +61,6 @@ classes = []
 
 # default is empty list
 sockets = []
-
-# Query Enabled Store configuration
-[inputs.query_enabled_store]
-
-enabled = "0"
-
-# Connection string for QES
-connection_string = ""
-
-# Settings for AstraClientModule
-[inputs.astra_client]
-
-# Enabled injection of AstraClientModule
-enabled = "0"
 
 # Framework-powered logging
 [logging]

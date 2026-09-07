@@ -1,28 +1,46 @@
-[tool.poetry]
+[project]
 name = "nexus-hello"
 version = "0.0.0"
 description = "Sample project demonstrating Nexus framework usage and features"
-authors = ["ECCO Data & AI <esdsupport@ecco.com>"]
-maintainers = ["ECCO Data & AI <esdsupport@ecco.com>"]
+authors = [{ name = "ECCO Data & AI", email = "esdsupport@ecco.com" }]
+requires-python = ">=3.11,<3.16"
 readme = "README.md"
-license = 'Apache 2.0'
-repository = 'https://github.com/SneaksAndData/nexus-hello'
+license = "Apache-2.0"
+maintainers = [{ name = "ECCO Data & AI", email = "esdsupport@ecco.com" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "adapta[aws, datadog]>=4,<5",
+    "nexus-client-sdk>=1.7,<2",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.11,<3.13"
-adapta = { version = "^3.5", extras = ["storage", "aws", "datadog"] }
-nexus-client-sdk = "^1.2"
+[project.urls]
+Repository = "https://github.com/SneaksAndData/nexus-hello"
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8"
-pylint = "^3"
-pytest-mock = "^3.6.1"
-pytest-cov = "^3"
-locust = "^2.14.2"
-black = "^23"
-pytest-timeout = "^2.1.0"
-pytest-asyncio = "^0.24"
+[dependency-groups]
+dev = [
+    "pytest>=9,<10",
+    "pytest-mock>=3.6.1,<4",
+    "pytest-cov>=3,<4",
+    "locust>=2.14.2,<3",
+    "pytest-timeout>=2.1.0,<3",
+    "pytest-asyncio>=1,<2",
+    "ruff>=0.16.5",
+]
+
+[tool.uv]
+default-groups = "all"
+
+[tool.ruff]
+src = ["src"]
+exclude = [".venv", "examples"]
+target-version = "py311"
+line-length = 120
+extend-exclude = ['tests/data/.*']
 
 [build-system]
-requires = ["poetry-core", "setuptools"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.12.7,<0.13.0"]
+build-backend = "uv_build"

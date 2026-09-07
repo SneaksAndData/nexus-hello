@@ -9,7 +9,7 @@ RUN apt-get update \
 
 WORKDIR /app/nexus_hello
 
-COPY nexus_hello /app/nexus_hello
+COPY src/nexus_hello /app/nexus_hello
 COPY .container/requirements.txt /tmp
 
 RUN python3 -m venv .venv \
@@ -25,5 +25,6 @@ WORKDIR /app/nexus_hello
 
 COPY --from=build-stage /app /app
 COPY settings.custom.toml /app/nexus_hello/settings.custom.toml
+COPY settings.provided.toml /app/nexus_hello/settings.provided.toml
 
 USER nonroot:nonroot
