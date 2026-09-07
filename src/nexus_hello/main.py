@@ -8,9 +8,7 @@ from nexus_hello.hello_algorithm import HelloAlgorithm
 from nexus_hello.models.payload import HelloData
 
 
-def logger_tags_from_payload(
-    payload: HelloData, _: NexusDefaultArguments
-) -> dict[str, str]:
+def logger_tags_from_payload(payload: HelloData, _: NexusDefaultArguments) -> dict[str, str]:
     """
     Extracts tags from payload used for logger
     """
@@ -19,9 +17,7 @@ def logger_tags_from_payload(
     }
 
 
-def metric_tags_from_payload(
-    payload: HelloData, run_args: NexusDefaultArguments
-) -> dict[str, str]:
+def metric_tags_from_payload(payload: HelloData, run_args: NexusDefaultArguments) -> dict[str, str]:
     """
     Extracts tags from payload used for metrics
     """
@@ -32,9 +28,7 @@ def metric_tags_from_payload(
     }
 
 
-def enrich_logger_from_payload(
-    _: HelloData, run_args: NexusDefaultArguments
-) -> dict[str, dict[str, str]]:
+def enrich_logger_from_payload(_: HelloData, run_args: NexusDefaultArguments) -> dict[str, dict[str, str]]:
     """
     Extracts tags from payload used for logging
     """
@@ -55,9 +49,7 @@ async def main():
     nexus = (
         nexus.use_algorithm(HelloAlgorithm)
         .inject_payload(HelloData)
-        .with_log_enricher(
-            tagger=logger_tags_from_payload, enricher=enrich_logger_from_payload
-        )
+        .with_log_enricher(tagger=logger_tags_from_payload, enricher=enrich_logger_from_payload)
         .with_metric_tagger(tagger=metric_tags_from_payload)
     )
 

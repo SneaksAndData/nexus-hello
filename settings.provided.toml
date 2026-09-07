@@ -1,0 +1,22 @@
+dynaconf_merge = true
+
+[runtime]
+
+algorithm = " nexus_hello.hello_algorithm.HelloAlgorithm"
+
+[runtime.payload]
+
+# payload type supported by this Nexus application.
+type_name = "nexus_hello.models.payload.HelloData"
+
+
+# ADDITIONAL SERVICES
+[services]
+    # Query Enabled Stores
+    [query_enabled_store]
+
+    enabled = "0"
+
+[hello_settings]
+hello_str = "Configuration String"
+hello_num = 1234567890

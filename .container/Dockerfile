@@ -25,5 +25,6 @@ WORKDIR /app/nexus_hello
 
 COPY --from=build-stage /app /app
 COPY settings.custom.toml /app/nexus_hello/settings.custom.toml
+COPY settings.provided.toml /app/nexus_hello/settings.provided.toml
 
 USER nonroot:nonroot
