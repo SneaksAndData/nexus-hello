@@ -1,15 +1,15 @@
 import asyncio
 import os
 
+from nexus_client_sdk.nexus.configurations.configuration_model import NexusConfigurationModel
 from nexus_client_sdk.nexus.core.app_core import Nexus
 from nexus_client_sdk.nexus.input.command_line import NexusDefaultArguments
 
-from nexus_hello.hello_algorithm import HelloAlgorithm
 from nexus_hello.models.payload import HelloData
 
 
 def logger_tags_from_payload(
-    payload: HelloData, _: NexusDefaultArguments
+    payload: HelloData, _: NexusDefaultArguments, __: NexusConfigurationModel
 ) -> dict[str, str]:
     """
     Extracts tags from payload used for logger
@@ -20,7 +20,7 @@ def logger_tags_from_payload(
 
 
 def metric_tags_from_payload(
-    payload: HelloData, run_args: NexusDefaultArguments
+    payload: HelloData, run_args: NexusDefaultArguments, __: NexusConfigurationModel
 ) -> dict[str, str]:
     """
     Extracts tags from payload used for metrics
@@ -33,7 +33,7 @@ def metric_tags_from_payload(
 
 
 def enrich_logger_from_payload(
-    _: HelloData, run_args: NexusDefaultArguments
+    _: HelloData, run_args: NexusDefaultArguments, __: NexusConfigurationModel
 ) -> dict[str, dict[str, str]]:
     """
     Extracts tags from payload used for logging
@@ -51,14 +51,6 @@ async def main():
     nexus._run_args.sas_uri = nexus._run_args.sas_uri.replace(
         "http://localhost:9000",
         os.getenv("PROTEUS__AWS_ENDPOINT", "http://localhost:9000"),
-    )
-    nexus = (
-        nexus.use_algorithm(HelloAlgorithm)
-        .inject_payload(HelloData)
-        .with_log_enricher(
-            tagger=logger_tags_from_payload, enricher=enrich_logger_from_payload
-        )
-        .with_metric_tagger(tagger=metric_tags_from_payload)
     )
 
     await nexus.activate()
