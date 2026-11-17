@@ -36,7 +36,7 @@ class HelloAlgorithm(MinimalisticAlgorithm[HelloData, HelloConfig]):
             response_text=(
                 f"Hello to you, {self._payload.hello_author}! "
                 f"I am configured with {self._configuration.hello_settings.hello_str} and "
-                f"{self._configuration.hello_settings.hello_num} Guess what I have encoded for you :)"
+                f"{self._configuration.hello_settings.hello_num}. Guess what I have encoded for you :)"
             ),
             response_codes=list(b"Nexus is your true friend!"),
         )
