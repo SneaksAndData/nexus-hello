@@ -9,13 +9,14 @@ RUN apt-get update \
 
 WORKDIR /app/nexus_hello
 
-COPY src/nexus_hello /app/nexus_hello
 COPY .container/requirements.txt /tmp
 
 RUN python3 -m venv .venv \
     && source .venv/bin/activate \
     && MAKEFLAGS="-j$(nproc)" pip3 install --no-cache-dir -r /tmp/requirements.txt \
     && rm /tmp/requirements.txt
+
+COPY src/nexus_hello /app/nexus_hello
 
 # Deploy the application binary into a lean image
 FROM gcr.io/distroless/python3-debian12 AS build-release-stage
