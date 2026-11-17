@@ -12,6 +12,7 @@ class HelloSettings:
     hello_num: int
 
 
+@dataclass
 class HelloConfig(NexusConfigurationModel):
     """
     Hello configuration.

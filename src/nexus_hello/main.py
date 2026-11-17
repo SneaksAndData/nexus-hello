@@ -5,6 +5,7 @@ from nexus_client_sdk.nexus.configurations.configuration_model import NexusConfi
 from nexus_client_sdk.nexus.core.app_core import Nexus
 from nexus_client_sdk.nexus.input.command_line import NexusDefaultArguments
 
+from nexus_hello.models.hello_config import HelloConfig
 from nexus_hello.models.payload import HelloData
 
 
@@ -47,7 +48,7 @@ async def main():
     """
     Main function to run the Nexus Hello Algorithm
     """
-    nexus = Nexus.create()
+    nexus = Nexus.create().with_configuration_model(HelloConfig)
     nexus._run_args.sas_uri = nexus._run_args.sas_uri.replace(
         "http://localhost:9000",
         os.getenv("PROTEUS__AWS_ENDPOINT", "http://localhost:9000"),
