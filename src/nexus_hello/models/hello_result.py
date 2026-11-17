@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any, final
 
 import pandas
@@ -20,7 +20,7 @@ class HelloResult(AlgorithmResult):
     def result(self) -> pandas.DataFrame | polars.DataFrame | dict:
         return {
             "hello_response": self.response_text,
-            "hello_time": datetime.now(tz=datetime.UTC).isoformat(),
+            "hello_time": datetime.now(tz=UTC).isoformat(),
             "hello_values": self.response_codes,
         }
 
